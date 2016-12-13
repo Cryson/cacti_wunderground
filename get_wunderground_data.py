@@ -9,34 +9,17 @@
 
 import os
 import urllib2, json, pprint, sys
-from pprint import pprint
 import datetime
 import time
-
-###### \/\/\/\/\/\/\/\/\/\/\/\/\/\/\ ######
-###### FILL OUT YOUR VARIABLES BELOW ######
-###### \/\/\/\/\/\/\/\/\/\/\/\/\/\/\ ######
-
-#APIID/Key from weatherunderground
-user_apiid=""
-
-#City, e.g. New_York
-user_city=""
-
-#State e.g. MN, FL, CA
-user_state=""
-
-#Where is your weather cache file going to be located?
-#Example: /opt/usertest/test/weather.data
-cachefile=""
-
+import ConfigParser
+from pprint import pprint
 
 def getWeatherCondition(city) :
-	global jsondata
+	global jsondata 
 	try :
 		url = "http://api.wunderground.com/api/"
 		url += "%s/conditions/q/%s/" % (user_apiid, user_state)
-		url += "%s.json" % city
+		url += "%s.json" % city  
 		req = urllib2.Request(url)
 		response = urllib2.urlopen(req)
 		jsondata = response.read()
@@ -85,6 +68,15 @@ def pull_weather_json():
 
 
 #####MAIN
+
+Config = ConfigParser.ConfigParser()
+Config.read('config.ini')
+
+user_apiid = Config.get('weather_settings', 'user_apiid')
+user_city = Config.get('weather_settings', 'user_city')
+user_state = Config.get('weather_settings', 'user_state')
+cachefile = Config.get('weather_settings', 'cachefile')
+
 if os.path.exists(cachefile):
 	checkcache_mtime()
 	if minutes > 15:
