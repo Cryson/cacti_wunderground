@@ -4,6 +4,7 @@ Pull API data from www.wunderground.com and output the weather data for use in c
 
 ##Requirements
 Python 2.7+ needed
+
 Python 3.0+ not supported
 
 ##How-To Setup
