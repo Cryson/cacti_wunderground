@@ -8,10 +8,10 @@
 #
 
 import os
-import urllib2, json, pprint, sys
+import json, pprint, sys
+import urllib2, ConfigParser
 import datetime
 import time
-import ConfigParser
 from pprint import pprint
 
 def getWeatherCondition(city) :
@@ -68,9 +68,10 @@ def pull_weather_json():
 
 
 #####MAIN
+scriptpath = os.path.dirname(os.path.realpath(__file__)) 
 
 Config = ConfigParser.ConfigParser()
-Config.read('config.ini')
+Config.read('%s/config.ini' % scriptpath)
 
 user_apiid = Config.get('weather_settings', 'user_apiid')
 user_city = Config.get('weather_settings', 'user_city')
