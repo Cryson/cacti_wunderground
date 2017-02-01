@@ -8,11 +8,12 @@
 #
 
 import os
-import json, pprint, sys
-import urllib2, ConfigParser
+import json
+import urllib2
+import ConfigParser
 import datetime
 import time
-from pprint import pprint
+
 
 def getWeatherCondition(city) :
 	global jsondata 
@@ -36,38 +37,40 @@ def checkcache_mtime():
 	seconds = currenttime - epoch
 	minutes = seconds // 60 % 60
 
+
 def pull_weather_json():
 	weather = getWeatherCondition(user_city)
 	w = json.loads(weather)
 
 	#Grab Weather Data from Json into variables
-	name = w['current_observation']['display_location']['city']
+	# name = w['current_observation']['display_location']['city']
 	currenttemp = float(w['current_observation']['temp_f'])
 	atmospressure = float(w['current_observation']['pressure_in'])
 	windspeed = float(w['current_observation']['wind_mph'])
-	winddir = w['current_observation']['wind_dir']
-	timeepoch = float(w['current_observation']['local_epoch'])
-	realtime = datetime.datetime.fromtimestamp(timeepoch).strftime('%c')
+	# winddir = w['current_observation']['wind_dir']
+	# timeepoch = float(w['current_observation']['local_epoch'])
+	# realtime = datetime.datetime.fromtimestamp(timeepoch).strftime('%c')
 	humidity = w['current_observation']['relative_humidity']
 	humidity = humidity[:-1]
 	humidity = float(humidity)
 	feels_like = float(w['current_observation']['feelslike_f'])
 	dewpoint = float(w['current_observation']['dewpoint_f'])
-	outsideweather = w['current_observation']['weather']
+	# outsideweather = w['current_observation']['weather']
 
-	#create cache file
+	# create cache file
 	f = open(cachefile, 'w')
-	f.write("DEW:%.2f CURRTEMP:%.2f FEELS:%.2f HUM:%.2f WINDSP:%.2f PRESS:%.2f" % (dewpoint, currenttemp, feels_like, humidity, windspeed, atmospressure))
+	f.write("DEW:%.2f CURRTEMP:%.2f FEELS:%.2f HUM:%.2f WINDSP:%.2f PRESS:%.2f" % (dewpoint,
+																				currenttemp, feels_like, humidity, windspeed, atmospressure))
 	f.close()
 
-	#print cache file
+	# print cache file
 	f = open(cachefile, 'r')
 	contents = f.read()
 	print(contents)
 	f.close()
 
 
-#####MAIN
+# MAIN
 scriptpath = os.path.dirname(os.path.realpath(__file__)) 
 
 Config = ConfigParser.ConfigParser()
