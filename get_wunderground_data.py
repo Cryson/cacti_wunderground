@@ -60,7 +60,7 @@ def pull_weather_json():
 	# create cache file
 	f = open(cachefile, 'w')
 	f.write("DEW:%.2f CURRTEMP:%.2f FEELS:%.2f HUM:%.2f WINDSP:%.2f PRESS:%.2f" % (dewpoint,
-																				currenttemp, feels_like, humidity, windspeed, atmospressure))
+	                                                                               currenttemp, feels_like, humidity, windspeed, atmospressure))
 	f.close()
 
 	# print cache file
